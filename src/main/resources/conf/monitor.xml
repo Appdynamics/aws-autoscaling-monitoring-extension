@@ -1,0 +1,26 @@
+<monitor>
+    <name>AWS AutoScaling Monitor</name>
+    <type>managed</type>
+    <description>AWS AutoScaling Monitoring Extension</description>
+    <monitor-configuration></monitor-configuration>
+    <monitor-run-task>
+        <execution-style>periodic</execution-style>
+        <execution-frequency-in-seconds>60</execution-frequency-in-seconds>
+        <name>AWS AutoScaling Monitor Run task</name>
+        <display-name>AWS AutoScaling Monitor Run task</display-name>
+        <description>AWS AutoScaling Monitor Run task</description>
+        <type>java</type>
+        <execution-timeout-in-secs>60</execution-timeout-in-secs>
+        
+		<task-arguments>
+			<argument name="config-file" is-required="true" default-value="monitors/AWSAutoScalingMonitor/conf/config.yaml" />
+			<argument name="region-endpoints-config" is-required="true" default-value="monitors/AWSAutoScalingMonitor/conf/region-endpoints.yaml" />
+		</task-arguments>
+            
+        <java-task>
+            <classpath>aws-autoscaling-monitoring-extension.jar</classpath>
+            <impl-class>com.appdynamics.extensions.aws.autoscaling.AutoScalingMonitor</impl-class>
+        </java-task>
+        
+    </monitor-run-task>
+</monitor>
