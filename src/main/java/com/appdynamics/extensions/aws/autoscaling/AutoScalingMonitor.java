@@ -19,7 +19,7 @@ public class AutoScalingMonitor extends SingleNamespaceCloudwatchMonitor<Configu
 	private static final Logger LOGGER = Logger.getLogger("com.singularity.extensions.aws.AutoScalingMonitor");
 
 	private static final String DEFAULT_METRIC_PREFIX = String.format("%s%s%s%s", 
-			"Custom Metrics", METRIC_PATH_SEPARATOR, "AutoScaling", METRIC_PATH_SEPARATOR);
+			"Custom Metrics", METRIC_PATH_SEPARATOR, "Amazon AutoScaling", METRIC_PATH_SEPARATOR);
 	
 	public AutoScalingMonitor() {
 		super(Configuration.class);

@@ -49,7 +49,7 @@ Captures AutoScaling statistics from Amazon CloudWatch and displays them in the 
 | | noOfRegionThreadsPerAccount | The no of threads to process multiple regions per account concurrently | 3 |
 | | noOfMetricThreadsPerRegion | The no of threads to process multiple metrics per region concurrently | 3 |
 | | ----- | ----- | ----- |
-| | metricPrefix | The path prefix for viewing metrics in the metric browser. | "Custom Metrics\|Amazon ElastiCache\|" |
+| | metricPrefix | The path prefix for viewing metrics in the metric browser. | "Custom Metrics\|Amazon AutoScaling\|" |
 
 
 **Below is an example config for monitoring multiple accounts and regions:**
@@ -118,7 +118,7 @@ To set an encrypted awsAccessKey and awsSecretKey in config.yaml, follow the ste
 3. Set the decryptionKey field in config.yaml with the encryption key used, as well as the resulting encrypted awsAccessKey and awsSecretKey in their respective fields.
 
 ##Metrics
-Typical metric path: **Application Infrastructure Performance|\<Tier\>|Custom Metrics|Amazon AutoScaling|\<Account Name\>|Group|\<group id\>** followed by the metrics defined in the link below:
+Typical metric path: **Application Infrastructure Performance|\<Tier\>|Custom Metrics|Amazon AutoScaling|\<Account Name\>|\<Region\>|Group|\<group id\>** followed by the metrics defined in the link below:
 
 - [AutoScaling Metrics](http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/as-metricscollected.html#as-group-metrics)
 
