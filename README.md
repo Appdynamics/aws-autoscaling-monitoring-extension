@@ -1,4 +1,4 @@
-#AWS AutoScaling Monitoring Extension
+# AWS AutoScaling Monitoring Extension
 
 ##Use Case
 Captures AWS AutoScaling statistics from Amazon CloudWatch and displays them in the AppDynamics Metric Browser.
