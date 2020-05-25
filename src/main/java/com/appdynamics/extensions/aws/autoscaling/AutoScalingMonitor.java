@@ -8,63 +8,61 @@
 
 package com.appdynamics.extensions.aws.autoscaling;
 
-import static com.appdynamics.extensions.aws.Constants.METRIC_PATH_SEPARATOR;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
 import com.appdynamics.extensions.aws.SingleNamespaceCloudwatchMonitor;
+import com.appdynamics.extensions.aws.autoscaling.configuration.AutoScalingConfiguration;
+import com.appdynamics.extensions.aws.autoscaling.processors.AutoScalingMetricsProcessor;
 import com.appdynamics.extensions.aws.collectors.NamespaceMetricStatisticsCollector;
-import com.appdynamics.extensions.aws.config.Configuration;
 import com.appdynamics.extensions.aws.metric.processors.MetricsProcessor;
+import com.appdynamics.extensions.logging.ExtensionsLoggerFactory;
+import com.google.common.collect.Lists;
+import org.slf4j.Logger;
 
-/**
- * @author Florencio Sarmiento
- *
- */
-public class AutoScalingMonitor extends SingleNamespaceCloudwatchMonitor<Configuration> {
-	
-	private static final Logger LOGGER = Logger.getLogger("com.singularity.extensions.aws.AutoScalingMonitor");
+import java.util.List;
+import java.util.Map;
 
-	private static final String DEFAULT_METRIC_PREFIX = String.format("%s%s%s%s", 
-			"Custom Metrics", METRIC_PATH_SEPARATOR, "Amazon AutoScaling", METRIC_PATH_SEPARATOR);
-	
+public class AutoScalingMonitor extends SingleNamespaceCloudwatchMonitor<AutoScalingConfiguration> {
+	private static final Logger LOGGER = ExtensionsLoggerFactory.getLogger(AutoScalingMonitor.class);
+
 	public AutoScalingMonitor() {
-		super(Configuration.class);
-		LOGGER.info(String.format("Using AWS AutoScaling Monitor Version [%s]", 
-				this.getClass().getPackage().getImplementationTitle()));
+		super(AutoScalingConfiguration.class);
 	}
 
 	@Override
-	protected NamespaceMetricStatisticsCollector getNamespaceMetricsCollector(
-			Configuration config) {
-		MetricsProcessor metricsProcessor = createMetricsProcessor(config);
+	protected NamespaceMetricStatisticsCollector getNamespaceMetricsCollector(AutoScalingConfiguration billingConfiguration) {
+		MetricsProcessor metricsProcessor = createMetricsProcessor(billingConfiguration);
 
 		return new NamespaceMetricStatisticsCollector
-				.Builder(config.getAccounts(),
-						config.getConcurrencyConfig(), 
-						config.getMetricsConfig(),
-						metricsProcessor)
-				.withCredentialsEncryptionConfig(config.getCredentialsDecryptionConfig())
-				.withProxyConfig(config.getProxyConfig())
+				.Builder(billingConfiguration.getAccounts(),
+				billingConfiguration.getConcurrencyConfig(),
+				billingConfiguration.getMetricsConfig(),
+				metricsProcessor,
+				billingConfiguration.getMetricPrefix())
+				.withCredentialsDecryptionConfig(billingConfiguration.getCredentialsDecryptionConfig())
+				.withProxyConfig(billingConfiguration.getProxyConfig())
 				.build();
+	}
+
+	private MetricsProcessor createMetricsProcessor(AutoScalingConfiguration autoScalingConfiguration){
+		return new AutoScalingMetricsProcessor(autoScalingConfiguration);
 	}
 
 	@Override
 	protected Logger getLogger() {
 		return LOGGER;
 	}
-	
+
 	@Override
-	protected String getMetricPrefix(Configuration config) {
-		return StringUtils.isNotBlank(config.getMetricPrefix()) ? 
-				config.getMetricPrefix() : DEFAULT_METRIC_PREFIX;
+	protected String getDefaultMetricPrefix() {
+		return "Custom Metrics|Amazon AutoScaling|";
 	}
 
-	private MetricsProcessor createMetricsProcessor(Configuration config) {
-		return new AutoScalingMetricsProcessor(
-				config.getMetricsConfig().getMetricTypes(), 
-				config.getMetricsConfig().getExcludeMetrics());
+	@Override
+	public String getMonitorName() {
+		return "AWS AutoScaling Monitor";
 	}
 
+	@Override
+	protected List<Map<String, ?>> getServers() {
+		return Lists.newArrayList();
+	}
 }
