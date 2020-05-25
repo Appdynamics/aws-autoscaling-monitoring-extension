@@ -7,9 +7,9 @@
   -->
 
 <monitor>
-    <name>AWS AutoScaling Monitor</name>
+    <name>AWSAutoScalingMonitor</name>
     <type>managed</type>
-    <description>AWS AutoScaling Monitoring Extension</description>
+    <description>Monitors AWS AutoScaling</description>
     <monitor-configuration></monitor-configuration>
     <monitor-run-task>
         <execution-style>periodic</execution-style>
@@ -21,8 +21,7 @@
         <execution-timeout-in-secs>60</execution-timeout-in-secs>
         
 		<task-arguments>
-			<argument name="config-file" is-required="true" default-value="monitors/AWSAutoScalingMonitor/conf/config.yaml" />
-			<argument name="region-endpoints-config" is-required="true" default-value="monitors/AWSAutoScalingMonitor/conf/region-endpoints.yaml" />
+			<argument name="config-file" is-required="true" default-value="monitors/AWSAutoScalingMonitor/config.yml" />
 		</task-arguments>
             
         <java-task>
