@@ -3,8 +3,6 @@
 #Use the following metricPrefix if SIM is not enabled.
 metricPrefix: "Server|Component:<COMPONENT_ID>|Custom Metrics|Amazon AutoScaling|"
 
-enableHealthChecks: false
-
 #Allowed values are Basic and Detailed. Refer https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-cloudwatch-new.html for more information
 # Basic will fire CloudWatch API calls every 5 minutes
 # Detailed will fire CloudWatch API calls every 1 minutes
@@ -127,3 +125,25 @@ regionEndPoints:
   us-west-1: monitoring.us-west-1.amazonaws.com
   us-west-2: monitoring.us-west-2.amazonaws.com
   sa-east-1: monitoring.sa-east-1.amazonaws.com
+
+# If any of the following fields are not set, the values of the specific fields are set from the system properties of the corresponding fields as specified in the comments.
+# If the system properties are not set for the field, then the data is retrieved from machine agent configFile.
+controllerInfo:
+  controllerHost: "" # -Dappdynamics.controller.hostName
+  controllerPort: 8090 # -Dappdynamics.controller.port
+  controllerSslEnabled: false # -Dappdynamics.controller.ssl.enabled
+  enableOrchestration: false # N/A
+  uniqueHostId: "" # -Dappdynamics.agent.uniqueHostId
+  username: "" # -Dappdynamics.agent.monitors.controller.username
+  password: "" # -Dappdynamics.agent.monitors.controller.password
+  encryptedPassword: "" # -Dappdynamics.agent.monitors.controller.encryptedPassword
+  accountAccessKey: "" # -Dappdynamics.agent.accountAccessKey
+  account: "" # -Dappdynamics.agent.accountName
+  machinePath: "" # -Dappdynamics.machine.agent.hierarchyPath
+  simEnabled: false # -Dappdynamics.sim.enabled
+  applicationName: "" # -Dappdynamics.agent.applicationName
+  tierName: "" # -Dappdynamics.agent.tierName
+  nodeName: "" # -Dappdynamics.agent.nodeName
+
+#Encryption key for your controllerInfo password
+encryptionKey: "abcd"

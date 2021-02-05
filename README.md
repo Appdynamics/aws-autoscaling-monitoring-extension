@@ -104,6 +104,6 @@ For any questions or feature request, please contact [AppDynamics Center of Exce
 ## Version
    |          Name            |  Version   |
    |--------------------------|------------|
-   |Extension Version         |2.0.0       |
+   |Extension Version         |2.0.1       |
    |Controller Compatibility  |4.4 or Later|
-   |Last Update               |May 1, 2020 |
+   |Last Update               |Feb 5, 2021 |
